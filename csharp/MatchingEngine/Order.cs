@@ -4,29 +4,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace matching_engine
+namespace MatchingEngine
 {
     public static class OrderSide
     {
         public const bool BUY = true;
         public const bool SELL = false;
     }
-
+    
     public enum OrderTypes { Market, Limit, Stop }
 
     public class Order
     {
-        public int Id { get; private set; }
-        public int Type { get; private set; }
-        public double Price { get; private set; }
-        public bool Side { get; private set; }
-        public double Quantity { get; private set; }
-        public double Timestamp { get; private set; }
-        public String TimeInForce { get; private set; }
+        public int Id { get; }
+        public int Type { get;  }
+        public double Price { get; set; }
+        public bool Side { get;  set; }
+        public decimal Quantity { get; set; }
+        public double Timestamp { get; set; }
+        public String TimeInForce { get; set; }
 
-        public Order(int id, String type, double price, bool side, double quantity, double timestamp)
+        public Order(int id, int type, double price, bool side, decimal quantity, double timestamp)
         {
-
+            Id = id;
+            Type = type;
+            Price = price;
+            Side = side;
+            Quantity = quantity;
+            Timestamp = timestamp;
         }
     }
 
@@ -46,7 +51,9 @@ namespace matching_engine
         // Lower prices first
         public int Compare(Order x, Order y)
         {
-            return x.Price.CompareTo(y.Price);
+            var ret = x.Price.CompareTo(y.Price);
+            if (ret == 0) { ret = x.Timestamp.CompareTo(y.Timestamp); }
+            return ret;            
         }
     }
 
@@ -62,44 +69,48 @@ namespace matching_engine
 
         public void SortedInsert(Order order)
         {
-            if (this.Count == 0)
+            if (Count == 0)
             {
-                this.Add(order);
-                return;
+                // List is empty so the order can just be appended
+                Add(order);
             }
-            if (Comparer.Compare(this[this.Count - 1], order) <= 0)
+            else if (Comparer.Compare(this[Count - 1], order) <= 0)
             {
-                this.Add(order);
-                return;
+                // Order is smaller than the last order, so it can also just be appended
+                Add(order);
             }
-            if (Comparer.Compare(this[0], order) >= 0)
+            else if (Comparer.Compare(this[0], order) >= 0)
             {
-                this.Insert(0, order);
-                return;
+                // Order is larger than the first order, so it can be inserted at the top
+                Insert(0, order);
             }
-            int index = this.BinarySearch(order, Comparer);
-            if (index < 0)
-                index = ~index;
-            this.Insert(index, order);
+            else
+            {
+                int index = BinarySearch(order, Comparer);
+                if (index < 0)
+                    index = ~index;
+                Insert(index, order);
+            }
+            
         }
     }
 
     public class OrderBook
     {
-        private String Instrument;
+        private string Instrument { get; }
         private Dictionary<int, Order> OrderIdMap;
-        private OrderList<Order> Bids;
-        private OrderList<Order> Asks;
+        public OrderList<Order> Bids { get; }
+        public OrderList<Order> Asks { get; }
         private OrderList<Order> Conditionals;
 
-        public OrderBook(String instrument)
+        public OrderBook(string instrument)
         {
             Instrument = instrument;
             Bids = new OrderList<Order>(new BidComparer());
             Asks = new OrderList<Order>(new AskComparer());
         }
 
-        public void AddOrder(Order order)
+        public void Add(Order order)
         {
             if (order.Side == OrderSide.BUY)
             {
@@ -111,9 +122,8 @@ namespace matching_engine
             }
         }
 
-        public void RemoveOrder(int orderId)
+        public void Remove(Order order)
         {
-            Order order = OrderIdMap[orderId];
             if (order.Side == OrderSide.BUY)
             {
                 Bids.Remove(order);
@@ -122,6 +132,12 @@ namespace matching_engine
             {
                 Asks.Remove(order);
             }
+        }
+
+        public void Remove(int orderId)
+        {
+            Order order = OrderIdMap[orderId];
+            Remove(order);
         }
 
     }
@@ -137,7 +153,7 @@ namespace matching_engine
 
         public void AddInstrument(String symbol)
         {
-            OrderBooks.Add(symbol, new Lokomotor.OrderBook(symbol));
+            OrderBooks.Add(symbol, new OrderBook(symbol));
         }
 
     }

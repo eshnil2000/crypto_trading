@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Collections.Concurrent;
 
-namespace matching_engine
+namespace Server
 {
 
     public interface IServer

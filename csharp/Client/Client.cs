@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace matching_engine
+namespace Client
 {
     class Client
     {
