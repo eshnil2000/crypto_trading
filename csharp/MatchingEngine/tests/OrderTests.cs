@@ -131,6 +131,8 @@ namespace MatchingEngine.tests
         }
 
         [TestFixture]
-        public class OrderBookTest{}
+        public class OrderBookTest
+        {
+        }
     }
 }

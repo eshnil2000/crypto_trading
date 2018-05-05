@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +34,16 @@ namespace MatchingEngine
             Quantity = quantity;
             Timestamp = timestamp;
         }
+
+        public override string ToString()
+        {
+            var side = "BUY";
+            if (Side == OrderSide.SELL)
+            {
+                side = "SELL";
+            }
+            return "Order: " + side + " " +  Quantity + " units @ " + Price + "";
+        }  
     }
 
     class BidComparer : IComparer<Order>
@@ -91,17 +102,14 @@ namespace MatchingEngine
                     index = ~index;
                 Insert(index, order);
             }
-            
         }
     }
 
     public class OrderBook
     {
         private string Instrument { get; }
-        private Dictionary<int, Order> OrderIdMap;
         public OrderList<Order> Bids { get; }
         public OrderList<Order> Asks { get; }
-        private OrderList<Order> Conditionals;
 
         public OrderBook(string instrument)
         {
@@ -112,32 +120,56 @@ namespace MatchingEngine
 
         public void Add(Order order)
         {
-            if (order.Side == OrderSide.BUY)
+            switch (order.Side)
             {
-                Bids.SortedInsert(order);
+                case OrderSide.BUY:
+                    Bids.SortedInsert(order);
+                    break;
+                case OrderSide.SELL:
+                    Asks.SortedInsert(order);
+                    break;
             }
-            else if (order.Side == OrderSide.SELL) 
-            {
-                Asks.SortedInsert(order);
-            }
+        }
+
+        public void RemoveAll(Predicate<Order> match)
+        {
+            Bids.RemoveAll(match);
+            Asks.RemoveAll(match);
         }
 
         public void Remove(Order order)
         {
-            if (order.Side == OrderSide.BUY)
+            switch (order.Side)
             {
-                Bids.Remove(order);
-            }
-            else if (order.Side == OrderSide.SELL)
-            {
-                Asks.Remove(order);
+                case OrderSide.BUY:
+                    Bids.Remove(order);
+                    break;
+                case OrderSide.SELL:
+                    Asks.Remove(order);
+                    break;
             }
         }
 
-        public void Remove(int orderId)
+        public void RemoveAll(bool type, params int[] ids)
         {
-            Order order = OrderIdMap[orderId];
-            Remove(order);
+            switch (type)
+            {
+                case OrderSide.BUY:
+                    Bids.RemoveAll(order => ids.Contains(order.Id));
+                    break;
+                case OrderSide.SELL:
+                    Asks.RemoveAll(order => ids.Contains(order.Id));
+                    break;
+            }
+        }
+
+        public bool IsEmpty(bool side)
+        {
+            if (side == OrderSide.BUY)
+            {
+                return Bids.Count == 0;
+            }
+            return Asks.Count == 0;
         }
 
     }

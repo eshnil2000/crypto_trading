@@ -8,17 +8,22 @@ namespace MatchingEngine
 {
     public class Trade
     {
-        public int BuyOrderId { get; }
-        public int SellOrderId { get; }
+        private int InitiatorId { get; }
+        private int CounterpartyId { get; }
         public double Price { get; }
         public decimal Quantity { get; }
 
-        public Trade(int buyOrderId, int sellOrderId, double price, decimal quantity)
+        public Trade(int initiatorId, int counterpartyId, double price, decimal quantity)
         {
-            BuyOrderId = buyOrderId;
-            SellOrderId = sellOrderId;
+            InitiatorId = initiatorId;
+            CounterpartyId = counterpartyId;
             Price = price;
             Quantity = quantity;
         }
+        
+        public override string ToString()
+        {
+            return "Trade: " + Quantity + " units @ " + Price;
+        }  
     }
 }
