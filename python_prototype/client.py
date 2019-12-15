@@ -7,7 +7,7 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 try:
     # Connect to server and send data
     sock.connect(("localhost", 8080))
-    order = {'id': 0, 'type': 'limit', 'side': 'buy', 'price': 100, 'quantity': 322}
+    order = {'id': 0, 'type': 'limit', 'side': 'sell', 'price': 100, 'quantity': 12}
     serialized_order = json.dumps(order).encode('utf-8')
     sock.sendall(serialized_order)
 

@@ -16,6 +16,10 @@ class OrderHandler(socketserver.BaseRequestHandler):
                                 data['price'], 
                                 data['quantity'])
             self.server.matching_engine.process(order)
+            for bid in self.server.matching_engine.orderbook.bids: 
+                print(bid)
+            for ask in self.server.matching_engine.orderbook.asks: 
+                print(asks)
             self.request.sendall("ACK".encode("utf-8"))
 
 class MatchingEngineServer(socketserver.TCPServer):
@@ -29,4 +33,5 @@ def serve():
     server.serve_forever()
 
 if __name__ == "__main__":
+
     serve()
