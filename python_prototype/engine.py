@@ -47,6 +47,7 @@ class OrderBook:
         else:
             return 0
 
+
     def add(self, order):
         if order.side == 'buy':
             index = self.bids.bisect_right(order)
