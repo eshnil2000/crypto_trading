@@ -21,6 +21,7 @@ def direct_benchmark(nr_of_orders, midpoint=100):
 
     start = timer()
     for order in orders:
+        print(order)
         engine.process(order)
     end = timer()
     t = end - start
@@ -49,6 +50,7 @@ def socket_benchmark(nr_of_orders, midpoint=100):
     sock.connect(("localhost", 8080))
     for order in orders:
         serialized_order = json.dumps(order).encode('utf-8')
+        print(serialized_order)
         sock.sendall(serialized_order)
         acknowledge = str(sock.recv(1024), "utf-8")
     end = timer()
@@ -57,6 +59,6 @@ def socket_benchmark(nr_of_orders, midpoint=100):
     print("at an average speed of {0:.0f} orders/second or {1:.2f} microseconds/order,".format((nr_of_orders/t), (t/nr_of_orders) * 1000 * 1000))
     print('resulting in {0} new orders in the book and {1} trades.'.format( len(engine.orderbook)-orderbook_size, len(engine.trades)))
 
-socket_benchmark(100000)
+socket_benchmark(100)
     
 

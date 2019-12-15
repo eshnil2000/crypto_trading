@@ -50,11 +50,12 @@ class OrderBook:
     def add(self, order):
         if order.side == 'buy':
             index = self.bids.bisect_right(order)
-            self.bids.insert(index, order)
+            #self.bids.insert(index, order)
+            self.bids.add(order)
         elif order.side == 'sell':
             index = self.asks.bisect_right(order)
-            self.asks.insert(index, order)
-
+            #self.asks.insert(index, order)
+            self.asks.add( order)
     def remove(self, order):
         if order.side == 'buy':
             self.bids.remove(order)
