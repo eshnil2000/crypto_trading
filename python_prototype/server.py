@@ -19,7 +19,7 @@ class OrderHandler(socketserver.BaseRequestHandler):
             for bid in self.server.matching_engine.orderbook.bids: 
                 print(bid)
             for ask in self.server.matching_engine.orderbook.asks: 
-                print(asks)
+                print(ask)
             self.request.sendall("ACK".encode("utf-8"))
 
 class MatchingEngineServer(socketserver.TCPServer):
