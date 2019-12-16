@@ -16,10 +16,14 @@ class OrderHandler(socketserver.BaseRequestHandler):
                                 data['price'], 
                                 data['quantity'])
             self.server.matching_engine.process(order)
+            serialized_order = self.server.matching_engine.orderbook.bids
+            #print(serialized_order)
             for bid in self.server.matching_engine.orderbook.bids: 
                 print(bid)
+                print(json.dumps(bid.price))
             for ask in self.server.matching_engine.orderbook.asks: 
-                print(ask)
+                #print(ask)
+                print('ask')
             self.request.sendall("ACK".encode("utf-8"))
 
 class MatchingEngineServer(socketserver.TCPServer):

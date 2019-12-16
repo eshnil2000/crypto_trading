@@ -1,6 +1,8 @@
 from collections import deque
 from sortedcontainers import SortedList
 import threading
+import matplotlib
+import matplotlib.pyplot as plt
 
 
 class Order:
