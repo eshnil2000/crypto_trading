@@ -26,7 +26,8 @@ class Trade:
         self.quantity = quantity
 
     def show(self):
-        print("[", self.price, self.quantity, "]")
+        x=1
+        #print("[", self.price, self.quantity, "]")
 
 class OrderBook:
 
