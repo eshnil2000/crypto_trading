@@ -3,4 +3,5 @@ requests
 flask-cors
 flask_apscheduler
 sortedcontainers
+cython
 numpy
