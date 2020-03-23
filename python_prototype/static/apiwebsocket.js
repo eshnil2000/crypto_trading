@@ -5,6 +5,7 @@ $(function() {
     ws.onmessage = function (event) {
                 console.log(event.data);
             };
+            
     var table_bids=$('#table_bids').DataTable();
     var table_asks=$('#table_asks').DataTable();
     var table_orders=$('#table_orders').DataTable();
