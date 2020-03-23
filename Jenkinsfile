@@ -12,9 +12,12 @@ pipeline {
         
         stage('Deploy') { 
             agent {
-                docker {
-                    
-                    image 'python:3.6-alpine' 
+
+                dockerfile {
+                    filename 'Dockerfile'
+                    dir '.'
+                    label 'python-numpy-alpine'
+                    additionalBuildArgs  '--build-arg version=1.0.2'
                     args '-p 5000 --network nginx-proxy --expose 5000 -e VIRTUAL_HOST='+UU_ID+'.proxy.chainapp.live -e VIRTUAL_PORT=5000  '
                 }
             }
