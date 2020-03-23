@@ -8,6 +8,7 @@ https://jellepelgrims.com/posts/matching_engines#limit-order-books
 ## WEBINAR NOTES
 ### GO TO THIS URL TO BUILD FRONT END
 *http://ether.chainapp.live:8082/
-    
+### Launch CI/CD at this URL
+*http://proxy.chainapp.live:8085/    
 ### CHANGE THIS VARIABLE IN THE Webinar_Files/main.js
 *var MY_URL="1584941087";
