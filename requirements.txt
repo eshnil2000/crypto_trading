@@ -3,5 +3,3 @@ requests
 flask-cors
 flask_apscheduler
 sortedcontainers
-socket
-collections
