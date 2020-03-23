@@ -1,8 +1,8 @@
 from collections import deque
 from sortedcontainers import SortedList
 import threading
-import matplotlib
-import matplotlib.pyplot as plt
+#import matplotlib
+#import matplotlib.pyplot as plt
 
 
 class Order:
@@ -66,40 +66,40 @@ class OrderBook:
         elif order.side == 'sell':
             self.asks.remove(order)
 
-    def plot(self):
-        fig = plt.figure(figsize=(10,5))
-        ax = fig.add_subplot(111)
-        ax.set_title("Limit Order Book")
+    # def plot(self):
+    #     fig = plt.figure(figsize=(10,5))
+    #     ax = fig.add_subplot(111)
+    #     ax.set_title("Limit Order Book")
 
-        ax.set_xlabel('Price')
-        ax.set_ylabel('Quantity')
+    #     ax.set_xlabel('Price')
+    #     ax.set_ylabel('Quantity')
 
-        # Cumulative bid volume
-        bidvalues = [0]
-        for i in range(len(self.bids)):
-            bidvalues.append(sum([self.bids[x].quantity for x in range(i+1)]))
-        bidvalues.append(sum([bid.quantity for bid in self.bids]))
-        bidvalues.sort()
+    #     # Cumulative bid volume
+    #     bidvalues = [0]
+    #     for i in range(len(self.bids)):
+    #         bidvalues.append(sum([self.bids[x].quantity for x in range(i+1)]))
+    #     bidvalues.append(sum([bid.quantity for bid in self.bids]))
+    #     bidvalues.sort()
 
-        # Cumulative ask volume
-        askvalues = [0]
-        for i in range(len(self.asks)):
-            askvalues.append(sum([self.asks[x].quantity for x in range(i+1)]))
-        askvalues.append(sum([ask.quantity for ask in self.asks]))
-        askvalues.sort(reverse=True)
+    #     # Cumulative ask volume
+    #     askvalues = [0]
+    #     for i in range(len(self.asks)):
+    #         askvalues.append(sum([self.asks[x].quantity for x in range(i+1)]))
+    #     askvalues.append(sum([ask.quantity for ask in self.asks]))
+    #     askvalues.sort(reverse=True)
 
-        # Draw bid side
-        x = [self.bids[0].price] + [order.price for order in self.bids] + [self.bids[-1].price]
-        ax.step(x, bidvalues, color='green')
+    #     # Draw bid side
+    #     x = [self.bids[0].price] + [order.price for order in self.bids] + [self.bids[-1].price]
+    #     ax.step(x, bidvalues, color='green')
 
-        # Draw ask side
-        x = [self.asks[-1].price] + sorted([order.price for order in self.asks], reverse=True) + [self.asks[0].price]
-        ax.step(x, askvalues, color='red')
+    #     # Draw ask side
+    #     x = [self.asks[-1].price] + sorted([order.price for order in self.asks], reverse=True) + [self.asks[0].price]
+    #     ax.step(x, askvalues, color='red')
 
-        ax.set_xlim([min(order.price for order in self.bids), max(order.price for order in self.asks)])
-        plt.show()
-        if save:
-            fig.savefig('plot.png', transparent=True)
+    #     ax.set_xlim([min(order.price for order in self.bids), max(order.price for order in self.asks)])
+    #     plt.show()
+    #     if save:
+    #         fig.savefig('plot.png', transparent=True)
 
 class MatchingEngine:
 
