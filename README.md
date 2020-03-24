@@ -12,3 +12,8 @@ https://jellepelgrims.com/posts/matching_engines#limit-order-books
 *http://proxy.chainapp.live:8085/    
 ### CHANGE THIS VARIABLE IN THE Webinar_Files/main.js
 *var MY_URL="1584941087";
+
+### Usage
+*#curl -d '{"side":"buy", "price": "100", "quantity":"1000"}' -H "Content-Type: application/json" -X POST http://localhost:5000/order/new
+*#curl -d '{"side":"sell", "price": "102", "quantity":"100"}' -H "Content-Type: application/json" -X POST http://localhost:5000/order/new
+*#curl -X GET http://localhost:5000/orderbook
