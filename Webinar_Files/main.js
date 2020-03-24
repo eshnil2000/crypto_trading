@@ -17,12 +17,12 @@ $(function() {
 
     $("#execute-random-btn").click(function(e) {
     e.preventDefault();
-    console.log('clicked random');
+    //console.log('clicked random');
     var no_orders = $('#no_orders').val();
     var midpoint = $('#midpoint').val();
     var query= {"number":no_orders,"midpoint":midpoint}
 
-    console.log(query);
+    //console.log(query);
     
     $.ajax({
           type: "POST",
@@ -31,23 +31,23 @@ $(function() {
           dataType: "json",
           data: JSON.stringify(query),
            success: function(response) {
-              console.log(response.message);
+              //console.log(response.message);
             },
           error: function(error) {
-              console.log(error);
+              //console.log(error);
           }
       });
   });
 
     $("#execute-form-btn").click(function(e) {
     e.preventDefault();
-    console.log('clicked');
+    //console.log('clicked');
     var buysell = $('#buysell').val();
     var price = $('#price').val();
     var quantity = $('#quantity').val();
     var query= {"side":buysell,"price":price,"quantity":quantity}
 
-    console.log(query);
+    //console.log(query);
 
     $.ajax({
           type: "POST",
@@ -56,11 +56,11 @@ $(function() {
           dataType: "json",
           data: JSON.stringify(query),
            success: function(response) {
-              console.log(response.message);
+              //console.log(response.message);
               table_orders.row.add([response.message]).draw();
             },
           error: function(error) {
-              console.log(error);
+              //console.log(error);
           }
       });
   });
@@ -127,15 +127,15 @@ $(function() {
                 trace2.y=[];
 
                 //Add a new div where Plot.ly can draw a plot
-                //console.log(response)
+                ////console.log(response)
                 divID=divID+1;
                 result="";
                 result+=response.answer;
                 var result_json= JSON.parse(result);
                 var result_key= Object.keys(result_json)[0];
                 var json=Object.values(result_json)[0];
-                //console.log(Object.keys(result_json)[0]);
-                //console.log(Object.values(result_json)[0]);
+                ////console.log(Object.keys(result_json)[0]);
+                ////console.log(Object.values(result_json)[0]);
 
                 if(result_key=="orderbook"){
                     //Loop over all the various stats passed in as JSON object
@@ -145,7 +145,7 @@ $(function() {
                     trace_item=0;
                     for (var key in json) {
                        if (json.hasOwnProperty(key)) {
-                            //console.log(key);
+                            ////console.log(key);
                             
                             if(key=="bid_price"){
                                 for (i=0;i<json[key].length;i++){
@@ -179,8 +179,8 @@ $(function() {
                             }
                        }
                     }
-                    //console.log('trace1 len:',trace1.x.length);
-                    //console.log('trace2 len:',trace2.x.length);
+                    ////console.log('trace1 len:',trace1.x.length);
+                    ////console.log('trace2 len:',trace2.x.length);
                     var tableDataSetBids=[];
                     table_bids.clear();
                     table_asks.clear();
@@ -202,7 +202,7 @@ $(function() {
                 setTimeout(worker, 5000);
                 },
                 error: function(error) {
-                //console.log(error);
+                ////console.log(error);
                 }
             });
         })();
