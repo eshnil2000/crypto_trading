@@ -75,7 +75,7 @@ $(function() {
         x: [], 
         y: [], 
         name: '', 
-        type: 'bar',
+        type: 'line',
         
         marker: {
         color: 'red',
@@ -86,7 +86,7 @@ $(function() {
         x: [], 
         y: [], 
         name: '', 
-        type: 'bar',
+        type: 'line',
         
         marker: {
         color: 'blue',
@@ -142,7 +142,7 @@ $(function() {
                     //Loop over all the various stats passed in as JSON object
                     trace1.name='Bid';
                     trace2.name='Ask';
-                    trace1.type='bar';
+                    //trace1.type='bar';
                     trace_item=0;
                     for (var key in json) {
                        if (json.hasOwnProperty(key)) {

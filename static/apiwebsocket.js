@@ -70,7 +70,7 @@ $(function() {
         x: [], 
         y: [], 
         name: '', 
-        type: 'bar',
+        type: 'line',
         
         marker: {
         color: 'red',
@@ -81,7 +81,7 @@ $(function() {
         x: [], 
         y: [], 
         name: '', 
-        type: 'bar',
+        type: 'line',
         
         marker: {
         color: 'blue',
@@ -101,7 +101,7 @@ $(function() {
             showdividers: true,
             dividercolor: 'grey',
             dividerwidth: 2,
-            type: 'bar',
+            //type: 'bar',
             color:'black'
         },
       yaxis: {
