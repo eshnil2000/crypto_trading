@@ -70,7 +70,7 @@ $(function() {
         x: [], 
         y: [], 
         name: '', 
-        type: 'line',
+        type: 'bar',
         
         marker: {
         color: 'red',
@@ -81,10 +81,11 @@ $(function() {
         x: [], 
         y: [], 
         name: '', 
-        type: 'line',
+        type: 'bar',
         
         marker: {
-        color: 'blue'
+        color: 'blue',
+        width: 20
         }
     };
 
