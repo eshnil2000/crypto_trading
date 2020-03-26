@@ -14,7 +14,22 @@ https://jellepelgrims.com/posts/matching_engines#limit-order-books
 *var MY_URL="1584941087";
 
 ### Usage
+### generate new buy order
 *#curl -d '{"side":"buy", "price": "100", "quantity":"1000"}' -H "Content-Type: application/json" -X POST http://localhost:5000/order/new
+
+### generate new sell order
 *#curl -d '{"side":"sell", "price": "102", "quantity":"100"}' -H "Content-Type: application/json" -X POST http://localhost:5000/order/new
+
+### get the orderbook
 *#curl -X GET http://localhost:5000/orderbook
+
+### generate random orders
 *#curl -d '{"number":"30", "midpoint": "100"}' -H "Content-Type:application/json" -X POST http://localhost:5000/orders/random
+
+### to test, start the python app, then run the script
+### launch app
+*#python api.py
+
+### run script
+*# ./scripts/test_engine.sh
+
