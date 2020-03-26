@@ -106,7 +106,7 @@ $(function() {
             showdividers: true,
             dividercolor: 'grey',
             dividerwidth: 2,
-            type: 'bar',
+            //type: 'bar',
             color:'black'
         },
       yaxis: {

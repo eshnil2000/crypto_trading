@@ -1,0 +1,10 @@
+#This image used by Jenkins
+#image @ eshnil2000/python-numpy
+# To build: docker build -t eshnil2000/python-numpy ./Dockerfile.python-numpy
+
+FROM python:3.6
+WORKDIR /usr/src/app
+
+# Bundle app source
+COPY . .
+RUN pip install -r requirements.txt
