@@ -21,7 +21,7 @@ $(function() {
     
     $.ajax({
           type: "POST",
-          url: "http://localhost:5000/orders/random",
+          url: "/orders/random",
           contentType: "application/json",
           dataType: "json",
           data: JSON.stringify(query),
@@ -46,7 +46,7 @@ $(function() {
 
     $.ajax({
           type: "POST",
-          url: "http://localhost:5000/order/new",
+          url: "/order/new",
           contentType: "application/json",
           dataType: "json",
           data: JSON.stringify(query),
@@ -114,7 +114,7 @@ $(function() {
     (function worker() {
             $.ajax({
                 type: "GET",
-                url: "http://localhost:5000/orderbook",
+                url: "/orderbook",
                 data: $(this).serialize(),
                 success: function(response) {
                 trace1.x=[];
