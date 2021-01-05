@@ -11,6 +11,11 @@
 *var MY_URL="1584941087";
 
 ### Usage
+
+### when on localhost subdomain
+```
+curl -H Host:crypto.localhost -d '{"number":"30", "midpoint": "100"}' -H "Content-Type:application/json" -XPOST localhost/orders/random
+```
 ### generate new buy order
 *#curl -d '{"side":"buy", "price": "100", "quantity":"1000"}' -H "Content-Type: application/json" -X POST http://localhost:5000/order/new
 
