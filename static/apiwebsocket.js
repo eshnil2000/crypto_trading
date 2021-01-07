@@ -46,7 +46,7 @@ $(function() {
 
     $.ajax({
           type: "POST",
-          url: "/order/new",
+          url: "/order/new-kafka",
           contentType: "application/json",
           dataType: "json",
           data: JSON.stringify(query),

@@ -18,6 +18,8 @@ from flask_apscheduler import APScheduler
 import engine
 import numpy as np
 import random
+import kafka
+   
 me=engine.MatchingEngine()
 # Instantiate the Orderbook with random orders
 # nr_of_orders=100
@@ -97,6 +99,30 @@ def new_order():
     response = {'message': f'Received {values["side"]} Order at $ {values["price"]} for {values["quantity"]} '}
     return jsonify(response), 201
 
+@app.route('/order/new-kafka', methods=['POST'])
+def new_order_kafka():
+    print('new-kafka')
+    TRANSACTIONS_TOPIC = os.environ.get('TRANSACTIONS_TOPIC')
+    KAFKA_BROKER_URL1 = os.environ.get('KAFKA_BROKER_URL1')
+    KAFKA_BROKER_URL2 = os.environ.get('KAFKA_BROKER_URL2')
+    KAFKA_BROKER_URL3 = os.environ.get('KAFKA_BROKER_URL3')
+    bootstrap_servers = [KAFKA_BROKER_URL1,KAFKA_BROKER_URL2,KAFKA_BROKER_URL3]
+    producer = KafkaProducer(
+            bootstrap_servers=bootstrap_servers,
+            # Encode all values as JSON
+            value_serializer=lambda value: json.dumps(value).encode(),
+        )
+    
+    values = request.get_json()
+    print(values)
+    # Check that the required fields are in the POST'ed data
+    required = ['side', 'price', 'quantity']
+    if not all(k in values for k in required):
+        return 'Missing values', 400
+    producer.send(TRANSACTIONS_TOPIC, value=value)
+    
+    response = {'message': f'Received {values["side"]} Order at $ {values["price"]} for {values["quantity"]} '}
+    return jsonify(response), 201
 
 @app.route('/orderbook', methods=['GET'])
 def full_book():

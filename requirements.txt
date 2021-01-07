@@ -5,3 +5,4 @@ flask_apscheduler
 sortedcontainers
 cython
 numpy
+kafka

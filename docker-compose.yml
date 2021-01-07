@@ -1,0 +1,31 @@
+#docker network create -d overlay --attachable docker-browser2_default
+version: '3.3'
+networks:
+  docker-browser2_default:
+    driver: overlay
+    external:
+      name:  docker-browser2_default
+services:
+
+  
+  crypto:
+    
+    image: crypto-trading
+    hostname: crypto
+    labels:
+      - traefik.http.routers.crypto.rule=Host(`crypto.localhost`)
+      #- traefik.http.routers.crypto.tls=true
+      #- traefik.http.routers.crypto.tls.certresolver=lets-encrypt
+      #- traefik.port=80
+      #- traefik.http.routers.crypto.entrypoints: web
+      - traefik.http.routers.crypto.service=crypto
+      - traefik.http.services.crypto.loadbalancer.server.port=5000
+      - traefik.docker.network=docker-browser2_default
+    environment:
+      KAFKA_BROKER_URL1: kafka1:9091
+      KAFKA_BROKER_URL2: kafka2:9092
+      KAFKA_BROKER_URL3: kafka3:9093
+      TRANSACTIONS_TOPIC: queueing.transactions
+      
+    networks:
+      docker-browser2_default:
