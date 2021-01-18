@@ -19,7 +19,8 @@ import engine
 import numpy as np
 import random
 import kafka
-   
+import os
+
 me=engine.MatchingEngine()
 # Instantiate the Orderbook with random orders
 # nr_of_orders=100
