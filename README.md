@@ -1,6 +1,6 @@
-# Matching engine
+# Crypto Order Matching engine
 
-## Crypto trading engine. Base code adapted from jpelgrims.
+## Traefik reverse proxy ready, Containerized Crypto trading engine in Python with frontend GUI in HTML/Javascript.
 
 ### Usage
 
