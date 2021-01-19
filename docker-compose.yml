@@ -1,4 +1,4 @@
-#docker network create -d overlay --attachable docker-browser2_default
+#docker network create -d overlay --attachable traefik_default
 version: '3.3'
 networks:
   docker-browser2_default:
@@ -28,4 +28,4 @@ services:
       TRANSACTIONS_TOPIC: queueing.transactions
       
     networks:
-      docker-browser2_default:
+      traefik_default:
