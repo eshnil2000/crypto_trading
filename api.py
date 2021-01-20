@@ -18,8 +18,10 @@ from flask_apscheduler import APScheduler
 import engine
 import numpy as np
 import random
-import kafka
+from kafka import KafkaConsumer, KafkaProducer
+
 import os
+import logging
 
 me=engine.MatchingEngine()
 # Instantiate the Orderbook with random orders
@@ -115,12 +117,19 @@ def new_order_kafka():
         )
     
     values = request.get_json()
+    app.logger.info('received' + str(values))
     print(values)
     # Check that the required fields are in the POST'ed data
     required = ['side', 'price', 'quantity']
     if not all(k in values for k in required):
         return 'Missing values', 400
-    producer.send(TRANSACTIONS_TOPIC, value=value)
+    data_obj={'side':values["side"],'quantity':values["quantity"],'price':values["price"],'pair':"BTC/USD"}
+    
+    transaction: dict = data_obj
+    app.logger.info('sending to kafka' + str(data_obj))
+    kafka_status=producer.send(TRANSACTIONS_TOPIC, value=transaction)
+    app.logger.info('kafka message status' + str(kafka_status))
+    
     
     response = {'message': f'Received {values["side"]} Order at $ {values["price"]} for {values["quantity"]} '}
     return jsonify(response), 201
@@ -168,5 +177,5 @@ if __name__ == '__main__':
     scheduler = APScheduler()
     scheduler.init_app(app)
     scheduler.start()
-
+    logging.basicConfig(level=logging.DEBUG)
     app.run(host='0.0.0.0', port=port,use_reloader=True, use_debugger=True, use_evalex=True)

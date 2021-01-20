@@ -12,4 +12,4 @@ EXPOSE 5000
 # Bundle app source
 COPY . .
 
-CMD [ "env", "FLASK_APP=api.py", "flask", "run" ,"--host", "0.0.0.0", "--port", "5000"]
+CMD [ "env", "FLASK_ENV=development","FLASK_APP=api.py", "flask", "run" ,"--host", "0.0.0.0", "--port", "5000"]
