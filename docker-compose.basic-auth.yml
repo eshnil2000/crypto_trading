@@ -15,6 +15,10 @@ services:
       - traefik.http.routers.crypto.service=crypto
       - traefik.http.services.crypto.loadbalancer.server.port=5000
       - traefik.docker.network=traefik_default
+      # generate login password: echo $(htpasswd -nb dappsuni dappsuni) | sed -e s/\\$/\\$\\$/g
+      # example output: dappsuni:$$apr1$$dWmZs0Kn$$XSxY0LjUB.u6PoS/AED3D/
+      - "traefik.http.routers.crypto.middlewares=test-auth"
+      - "traefik.http.middlewares.test-auth.basicauth.users=dappsuni:$$apr1$$dWmZs0Kn$$XSxY0LjUB.u6PoS/AED3D/"
     environment:
       KAFKA_BROKER_URL1: kafka1:9091
       KAFKA_BROKER_URL2: kafka2:9092

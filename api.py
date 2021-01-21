@@ -1,6 +1,7 @@
 #curl -d '{"side":"buy", "price": "100", "quantity":"1000"}' -H "Content-Type: application/json" -X POST http://localhost:5000/order/new
 #curl -d '{"side":"sell", "price": "102", "quantity":"100"}' -H "Content-Type: application/json" -X POST http://localhost:5000/order/new
 #curl -X GET http://localhost:5000/orderbook
+#curl -d '{"side":"buy", "price": "999", "quantity":"999","pair":"BTC/USD"}' -H "Content-Type: application/json" -X POST http://crypto.localhost/order/new-kafka
 
 import hashlib
 import json

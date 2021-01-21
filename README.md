@@ -1,8 +1,16 @@
 # Crypto Order Matching engine
 
-## Traefik reverse proxy ready, Containerized Crypto trading engine in Python with frontend GUI in HTML/Javascript.
+## Traefik reverse proxy ready, Containerized Crypto trading engine in Python with frontend GUI in HTML/Javascript & Kafka scale integration.
 
 ### Usage
+* pre-requisites: Docker installed
+* On localhost, modify /etc/hosts : echo -e "127.0.0.01\tcrypto.localhost" >>/etc/hosts
+
+* docker network create -d overlay --attachable traefik_default
+* docker build -t crypto-trading .
+* docker swarm init
+* docker stack deploy -c docker-compose.yml crypto
+* To use kafka integration, kafka cluster needs to be up and running
 
 ### when on localhost subdomain
 ```
