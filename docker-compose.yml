@@ -8,7 +8,7 @@ networks:
 services:
   crypto:
     
-    image: crypto-trading
+    image: eshnil2000/crypto-trading
     hostname: crypto
     labels:
       - traefik.http.routers.crypto.rule=Host(`crypto.localhost`)
